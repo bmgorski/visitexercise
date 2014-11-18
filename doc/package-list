@@ -1,0 +1,11 @@
+com.hilbertinc.base
+com.hilbertinc.logging
+com.hilbertinc.xml
+org.w3c.dom
+org.w3c.dom.css
+org.w3c.dom.events
+org.w3c.dom.html
+org.w3c.dom.range
+org.w3c.dom.stylesheets
+org.w3c.dom.traversal
+org.w3c.dom.views

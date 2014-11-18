@@ -1,0 +1,1834 @@
+
+(object Petal
+    version    	40)
+
+(object Design "Logical View"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    file_name  	"C:\\OOPatterns\\VisitorPatternSpecifics\\visitordemo\\visitordemo.mdl"
+    quid       	"3AB44D150212"
+    defaults   	(object defaults
+	rightMargin 	0.250000
+	leftMargin 	0.250000
+	topMargin  	0.250000
+	bottomMargin 	0.500000
+	pageOverlap 	0.250000
+	clipIconLabels 	TRUE
+	autoResize 	TRUE
+	snapToGrid 	TRUE
+	gridX      	6
+	gridY      	6
+	defaultFont 	(object Font
+	    size       	10
+	    face       	"Arial"
+	    bold       	FALSE
+	    italics    	FALSE
+	    underline  	FALSE
+	    strike     	FALSE
+	    color      	0
+	    default_color 	TRUE)
+	showMessageNum 	3
+	showClassOfObject 	TRUE
+	notation   	"Unified")
+    root_usecase_package 	(object Class_Category "Use Case View"
+	quid       	"3AB44D150214"
+	exportControl 	"Public"
+	global     	TRUE
+	logical_models 	(list unit_reference_list)
+	logical_presentations 	(list unit_reference_list
+	    (object UseCaseDiagram "Main"
+		quid       	"3AB44D150283"
+		title      	"Main"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    root_category 	(object Class_Category "Logical View"
+	quid       	"3AB44D150213"
+	exportControl 	"Public"
+	global     	TRUE
+	subsystem  	"Component View"
+	quidu      	"3AB44D150215"
+	logical_models 	(list unit_reference_list
+	    (object Class_Category "xml"
+		quid       	"3AB44D1E0096"
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class "HDOMParser"
+			quid       	"3AB44DB801B8"
+			used_nodes 	(list uses_relationship_list
+			    (object Uses_Relationship
+				quid       	"3AB455EC0352"
+				label      	"<<use>>"
+				supplier   	"HDOMUtil"
+				quidu      	"3AB44DC001CC"))
+			operations 	(list Operations
+			    (object Operation "getDocument"
+				quid       	"3AB44FCD00A0"
+				result     	"Document"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "parse"
+				quid       	"3AB4500E0352"
+				parameters 	(list Parameters
+				    (object Parameter "xmlstream"
+					type       	"InputStream"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "parse"
+				quid       	"3AB4503E02EE"
+				parameters 	(list Parameters
+				    (object Parameter "xmlstream"
+					type       	"InputStream")
+				    (object Parameter "name"
+					type       	"String"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "parse"
+				quid       	"3AB450A50082"
+				parameters 	(list Parameters
+				    (object Parameter "name"
+					type       	"String"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processNode"
+				quid       	"3AB4510401AE"
+				parameters 	(list Parameters
+				    (object Parameter "visitor"
+					type       	"HDOMVisitor")
+				    (object Parameter "node"
+					type       	"Node"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "setDocument"
+				quid       	"3AB4514B0302"
+				parameters 	(list Parameters
+				    (object Parameter "document"
+					type       	"Document"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "traverse"
+				quid       	"3AB4517802BC"
+				parameters 	(list Parameters
+				    (object Parameter "visitor"
+					type       	"HDOMVisitor"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Class "HDOMUtil"
+			quid       	"3AB44DC001CC"
+			operations 	(list Operations
+			    (object Operation "firstChildElement"
+				attributes 	(list Attribute_Set
+				    (object Attribute
+					tool       	"Java"
+					name       	"Static"
+					value      	TRUE))
+				quid       	"3AB451DD010E"
+				parameters 	(list Parameters
+				    (object Parameter "element"
+					type       	"Element"))
+				result     	"Element"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "isMatchingNode"
+				attributes 	(list Attribute_Set
+				    (object Attribute
+					tool       	"Java"
+					name       	"Static"
+					value      	TRUE))
+				quid       	"3AB4527702D0"
+				parameters 	(list Parameters
+				    (object Parameter "node"
+					type       	"Node")
+				    (object Parameter "tag"
+					type       	"String"))
+				result     	"boolean"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "nextElement"
+				attributes 	(list Attribute_Set
+				    (object Attribute
+					tool       	"Java"
+					name       	"Static"
+					value      	TRUE))
+				quid       	"3AB452BD0280"
+				parameters 	(list Parameters
+				    (object Parameter "element"
+					type       	"Element"))
+				result     	"Element"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "textFor"
+				attributes 	(list Attribute_Set
+				    (object Attribute
+					tool       	"Java"
+					name       	"Static"
+					value      	TRUE))
+				quid       	"3AB452EB0122"
+				parameters 	(list Parameters
+				    (object Parameter "element"
+					type       	"Element"))
+				result     	"String"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "textForFirstTag"
+				attributes 	(list Attribute_Set
+				    (object Attribute
+					tool       	"Java"
+					name       	"Static"
+					value      	TRUE))
+				quid       	"3AB4541000C8"
+				parameters 	(list Parameters
+				    (object Parameter "element"
+					type       	"Element")
+				    (object Parameter "tag"
+					type       	"String"))
+				result     	"String"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "textForTag"
+				attributes 	(list Attribute_Set
+				    (object Attribute
+					tool       	"Java"
+					name       	"Static"
+					value      	TRUE))
+				quid       	"3AB454B503CA"
+				parameters 	(list Parameters
+				    (object Parameter "element"
+					type       	"Element")
+				    (object Parameter "tag"
+					type       	"String"))
+				result     	"Array"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "trim"
+				attributes 	(list Attribute_Set
+				    (object Attribute
+					tool       	"Java"
+					name       	"Static"
+					value      	TRUE))
+				quid       	"3AB45515032A"
+				parameters 	(list Parameters
+				    (object Parameter "textNode"
+					type       	"Text"))
+				result     	"String"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Class "HDOMVisitor"
+			quid       	"3AB44DCC03D4"
+			stereotype 	"interface"
+			operations 	(list Operations
+			    (object Operation "continueTraversal"
+				quid       	"3AB4564D015E"
+				result     	"boolean"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processDocumentEpilog"
+				quid       	"3AB456AC0064"
+				parameters 	(list Parameters
+				    (object Parameter "document"
+					type       	"Document"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processDocumentProlog"
+				quid       	"3AB456D7010E"
+				parameters 	(list Parameters
+				    (object Parameter "document"
+					type       	"Document"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processDocumentType"
+				quid       	"3AB4570F0082"
+				parameters 	(list Parameters
+				    (object Parameter "dtd"
+					type       	"DocumentType"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processElementEpilog"
+				quid       	"3AB4573802F8"
+				parameters 	(list Parameters
+				    (object Parameter "node"
+					type       	"Element"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processElementProlog"
+				quid       	"3AB4575E0302"
+				parameters 	(list Parameters
+				    (object Parameter "node"
+					type       	"Element"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processText"
+				quid       	"3AB45787005A"
+				parameters 	(list Parameters
+				    (object Parameter "text"
+					type       	"Text"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Class "HDumperVisitor"
+			quid       	"3AB44DE900D2"
+			used_nodes 	(list uses_relationship_list
+			    (object Uses_Relationship
+				quid       	"3AB44E4501AE"
+				label      	"<<realize>>"
+				supplier   	"HDOMVisitor"
+				quidu      	"3AB44DCC03D4"))
+			operations 	(list Operations
+			    (object Operation "continueTraversal"
+				quid       	"3AB4580B023A"
+				result     	"boolean"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "flush"
+				quid       	"3AB4582F00D2"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getIndent"
+				quid       	"3AB4583E0104"
+				result     	"String"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getWriter"
+				quid       	"3AB458560366"
+				result     	"Writer"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "indentLess"
+				quid       	"3AB458760078"
+				concurrency 	"Sequential"
+				opExportControl 	"Protected"
+				uid        	0)
+			    (object Operation "indentMore"
+				quid       	"3AB4588602F8"
+				concurrency 	"Sequential"
+				opExportControl 	"Protected"
+				uid        	0)
+			    (object Operation "processDocumentEpilog"
+				quid       	"3AB458A200E6"
+				parameters 	(list Parameters
+				    (object Parameter "document"
+					type       	"Document"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processDocumentProlog"
+				quid       	"3AB458D0005A"
+				parameters 	(list Parameters
+				    (object Parameter "document"
+					type       	"Document"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processDocumentType"
+				quid       	"3AB458ED02EE"
+				parameters 	(list Parameters
+				    (object Parameter "dtd"
+					type       	"DocumentType"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processElementEpilog"
+				quid       	"3AB4591301AE"
+				parameters 	(list Parameters
+				    (object Parameter "node"
+					type       	"Element"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processElementProlog"
+				quid       	"3AB4593F0136"
+				parameters 	(list Parameters
+				    (object Parameter "node"
+					type       	"Element"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "processText"
+				quid       	"3AB4595E0046"
+				parameters 	(list Parameters
+				    (object Parameter "text"
+					type       	"Text"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "setWriter"
+				quid       	"3AB459800122"
+				parameters 	(list Parameters
+				    (object Parameter "writer"
+					type       	"Writer"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0))
+			class_attributes 	(list class_attribute_list
+			    (object ClassAttribute "writer"
+				quid       	"3AB457CF0280"
+				type       	"Writer")
+			    (object ClassAttribute "indent"
+				quid       	"3AB457E80050"
+				type       	"int")))
+		    (object Association "$UNNAMED$0"
+			quid       	"3AB44EF5008C"
+			roles      	(list role_list
+			    (object Role "$UNNAMED$1"
+				quid       	"3AB44EF50244"
+				supplier   	"HDOMVisitor"
+				quidu      	"3AB44DCC03D4"
+				is_navigable 	TRUE)
+			    (object Role "$UNNAMED$2"
+				quid       	"3AB44EF50245"
+				supplier   	"HDOMParser"
+				quidu      	"3AB44DB801B8"))))
+		logical_presentations 	(list unit_reference_list
+		    (object ClassDiagram "Main"
+			quid       	"3AB44DA701D6"
+			title      	"Main"
+			zoom       	100
+			max_height 	28350
+			max_width  	21600
+			origin_x   	0
+			origin_y   	0
+			items      	(list diagram_item_list
+			    (object ClassView "Class" "HDumperVisitor" @1
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1836, 1338)
+				label      	(object ItemLabel
+				    Parent_View 	@1
+				    location   	(1384, 907)
+				    nlines     	1
+				    max_width  	903
+				    justify    	0
+				    label      	"HDumperVisitor")
+				quidu      	"3AB44DE900D2"
+				compartment 	(object Compartment
+				    Parent_View 	@1
+				    location   	(1357, 967)
+				    anchor     	2
+				    nlines     	16
+				    max_width  	919)
+				width      	977
+				height     	886
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "HDOMUtil" @2
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(612, 1314)
+				label      	(object ItemLabel
+				    Parent_View 	@2
+				    location   	(117, 1083)
+				    nlines     	1
+				    max_width  	989
+				    justify    	0
+				    label      	"HDOMUtil")
+				quidu      	"3AB44DC001CC"
+				compartment 	(object Compartment
+				    Parent_View 	@2
+				    location   	(86, 1143)
+				    anchor     	2
+				    nlines     	8
+				    max_width  	1050)
+				width      	1070
+				height     	486
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "HDOMParser" @3
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(612, 450)
+				label      	(object ItemLabel
+				    Parent_View 	@3
+				    location   	(169, 219)
+				    nlines     	1
+				    max_width  	884
+				    justify    	0
+				    label      	"HDOMParser")
+				quidu      	"3AB44DB801B8"
+				compartment 	(object Compartment
+				    Parent_View 	@3
+				    location   	(143, 279)
+				    anchor     	2
+				    nlines     	8
+				    max_width  	934)
+				width      	956
+				height     	486
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "HDOMVisitor" @4
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1842, 450)
+				label      	(object ItemLabel
+				    Parent_View 	@4
+				    location   	(1407, 241)
+				    nlines     	1
+				    max_width  	869
+				    justify    	0
+				    label      	"HDOMVisitor")
+				stereotype 	(object ItemLabel
+				    Parent_View 	@4
+				    location   	(1407, 191)
+				    anchor     	10
+				    nlines     	1
+				    max_width  	869
+				    justify    	0
+				    label      	"<<interface>>")
+				quidu      	"3AB44DCC03D4"
+				compartment 	(object Compartment
+				    Parent_View 	@4
+				    location   	(1381, 301)
+				    anchor     	2
+				    nlines     	8
+				    max_width  	919)
+				width      	940
+				height     	542
+				annotation 	8
+				autoResize 	TRUE)
+			    (object AssociationViewNew "$UNNAMED$0" @5
+				location   	(1230, 450)
+				stereotype 	TRUE
+				quidu      	"3AB44EF5008C"
+				roleview_list 	(list RoleViews
+				    (object RoleView "$UNNAMED$1" @6
+					Parent_View 	@5
+					location   	(990, 192)
+					quidu      	"3AB44EF50244"
+					client     	@5
+					supplier   	@4
+					line_style 	0)
+				    (object RoleView "$UNNAMED$2" @7
+					Parent_View 	@5
+					location   	(990, 192)
+					quidu      	"3AB44EF50245"
+					client     	@5
+					supplier   	@3
+					line_style 	0)))
+			    (object UsesView "<<realize>>" @8
+				label      	(object ItemLabel
+				    Parent_View 	@8
+				    location   	(1839, 808)
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	450
+				    justify    	0
+				    label      	"<<realize>>")
+				quidu      	"3AB44E4501AE"
+				client     	@1
+				supplier   	@4
+				line_style 	0)
+			    (object UsesView "<<use>>" @9
+				label      	(object ItemLabel
+				    Parent_View 	@9
+				    location   	(612, 882)
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	450
+				    justify    	0
+				    label      	"<<use>>")
+				quidu      	"3AB455EC0352"
+				client     	@3
+				supplier   	@2
+				line_style 	0)
+			    (object NoteView @10
+				location   	(246, 924)
+				label      	(object ItemLabel
+				    Parent_View 	@10
+				    location   	(86, 837)
+				    nlines     	3
+				    max_width  	284
+				    label      	"all methods are static class methods")
+				width      	344
+				height     	187)
+			    (object AttachView "" @11
+				client     	@10
+				supplier   	@2
+				line_style 	0)
+			    (object Label @12
+				location   	(846, 60)
+				font       	(object Font
+				    size       	10
+				    face       	"Arial"
+				    bold       	TRUE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				nlines     	1
+				max_width  	743
+				label      	"Visitor Demonstration - xml package")))))
+	    (object Class_Category "logging"
+		quid       	"3AB44D200384"
+		visible_categories 	(list visibility_relationship_list
+		    (object Visibility_Relationship
+			quid       	"3AB4606002F8"
+			supplier   	"base"
+			quidu      	"3AB44D5003C0")
+		    (object Visibility_Relationship
+			quid       	"3AB460620352"
+			supplier   	"xml"
+			quidu      	"3AB44D1E0096"))
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class "UnitTest"
+			quid       	"3AB459EC014A"
+			used_nodes 	(list uses_relationship_list
+			    (object Uses_Relationship
+				quid       	"3AB45FD0038E"
+				label      	"<<throw>>"
+				supplier   	"HException"
+				quidu      	"3AB45B430262"))
+			operations 	(list Operations
+			    (object Operation "main"
+				quid       	"3AB45A380014"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)))
+		    (object Association "$UNNAMED$3"
+			quid       	"3AB45AB502E4"
+			roles      	(list role_list
+			    (object Role "$UNNAMED$4"
+				quid       	"3AB45AB60078"
+				supplier   	"HDOMParser"
+				quidu      	"3AB44DB801B8"
+				is_navigable 	TRUE)
+			    (object Role "$UNNAMED$5"
+				quid       	"3AB45AB60079"
+				supplier   	"UnitTest"
+				quidu      	"3AB459EC014A")))
+		    (object Association "$UNNAMED$6"
+			quid       	"3AB45AB7033E"
+			roles      	(list role_list
+			    (object Role "$UNNAMED$7"
+				quid       	"3AB45AB8010E"
+				supplier   	"HDumperVisitor"
+				quidu      	"3AB44DE900D2"
+				is_navigable 	TRUE)
+			    (object Role "$UNNAMED$8"
+				quid       	"3AB45AB8010F"
+				supplier   	"UnitTest"
+				quidu      	"3AB459EC014A"))))
+		logical_presentations 	(list unit_reference_list
+		    (object ClassDiagram "Main"
+			quid       	"3AB459D70316"
+			title      	"Main"
+			zoom       	100
+			max_height 	28350
+			max_width  	21600
+			origin_x   	0
+			origin_y   	0
+			items      	(list diagram_item_list
+			    (object NoteView @13
+				location   	(228, 318)
+				label      	(object ItemLabel
+				    Parent_View 	@13
+				    location   	(90, 258)
+				    nlines     	2
+				    max_width  	240
+				    label      	"main() is a static method")
+				width      	300
+				height     	132)
+			    (object ClassView "Class" "HDOMParser" @14
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1938, 312)
+				label      	(object ItemLabel
+				    Parent_View 	@14
+				    location   	(1496, 58)
+				    nlines     	1
+				    max_width  	882
+				    justify    	0
+				    label      	"HDOMParser")
+				quidu      	"3AB44DB801B8"
+				compartment 	(object Compartment
+				    Parent_View 	@14
+				    location   	(1470, 160)
+				    anchor     	2
+				    nlines     	8
+				    max_width  	905)
+				width      	954
+				height     	532
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "UnitTest" @15
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(678, 318)
+				label      	(object ItemLabel
+				    Parent_View 	@15
+				    location   	(589, 237)
+				    nlines     	1
+				    max_width  	177
+				    justify    	0
+				    label      	"UnitTest")
+				quidu      	"3AB459EC014A"
+				compartment 	(object Compartment
+				    Parent_View 	@15
+				    location   	(591, 297)
+				    anchor     	2
+				    nlines     	2
+				    max_width  	156)
+				width      	192
+				height     	186
+				annotation 	8
+				autoResize 	TRUE)
+			    (object AttachView "" @16
+				client     	@13
+				supplier   	@15
+				line_style 	0)
+			    (object AssociationViewNew "$UNNAMED$3" @17
+				location   	(1117, 315)
+				quidu      	"3AB45AB502E4"
+				roleview_list 	(list RoleViews
+				    (object RoleView "$UNNAMED$4" @18
+					Parent_View 	@17
+					location   	(511, -255)
+					quidu      	"3AB45AB60078"
+					client     	@17
+					supplier   	@14
+					line_style 	0)
+				    (object RoleView "$UNNAMED$5" @19
+					Parent_View 	@17
+					location   	(511, -255)
+					quidu      	"3AB45AB60079"
+					client     	@17
+					supplier   	@15
+					line_style 	0)))
+			    (object ClassView "Class" "HDumperVisitor" @20
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(1938, 1104)
+				label      	(object ItemLabel
+				    Parent_View 	@20
+				    location   	(1503, 650)
+				    nlines     	1
+				    max_width  	869
+				    justify    	0
+				    label      	"HDumperVisitor")
+				quidu      	"3AB44DE900D2"
+				compartment 	(object Compartment
+				    Parent_View 	@20
+				    location   	(1477, 758)
+				    anchor     	2
+				    nlines     	16
+				    max_width  	898)
+				width      	940
+				height     	932
+				annotation 	8
+				autoResize 	TRUE)
+			    (object AssociationViewNew "$UNNAMED$6" @21
+				location   	(1120, 594)
+				quidu      	"3AB45AB7033E"
+				roleview_list 	(list RoleViews
+				    (object RoleView "$UNNAMED$7" @22
+					Parent_View 	@21
+					location   	(514, 24)
+					quidu      	"3AB45AB8010E"
+					client     	@21
+					supplier   	@20
+					line_style 	0)
+				    (object RoleView "$UNNAMED$8" @23
+					Parent_View 	@21
+					location   	(514, 24)
+					quidu      	"3AB45AB8010F"
+					client     	@21
+					supplier   	@15
+					line_style 	0)))
+			    (object ClassView "Class" "HException" @24
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(684, 1512)
+				label      	(object ItemLabel
+				    Parent_View 	@24
+				    location   	(91, 783)
+				    nlines     	1
+				    max_width  	1184
+				    justify    	0
+				    label      	"HException")
+				quidu      	"3AB45B430262"
+				compartment 	(object Compartment
+				    Parent_View 	@24
+				    location   	(53, 891)
+				    anchor     	2
+				    nlines     	27
+				    max_width  	1208)
+				width      	1280
+				height     	1482
+				annotation 	8
+				autoResize 	TRUE)
+			    (object UsesView "<<throw>>" @25
+				label      	(object ItemLabel
+				    Parent_View 	@25
+				    location   	(679, 591)
+				    anchor_loc 	1
+				    nlines     	1
+				    max_width  	450
+				    justify    	0
+				    label      	"<<throw>>")
+				quidu      	"3AB45FD0038E"
+				client     	@15
+				supplier   	@24
+				line_style 	0)
+			    (object Label @26
+				location   	(91, 59)
+				font       	(object Font
+				    size       	10
+				    face       	"Arial"
+				    bold       	TRUE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				nlines     	1
+				max_width  	824
+				label      	"Visitor Demonstration - logging package")))))
+	    (object Class_Category "base"
+		quid       	"3AB44D5003C0"
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class "HException"
+			quid       	"3AB45B430262"
+			superclasses 	(list inheritance_relationship_list
+			    (object Inheritance_Relationship
+				quid       	"3AB45B6400F0"
+				supplier   	"Exception"
+				quidu      	"3AB45B540096"))
+			operations 	(list Operations
+			    (object Operation "HException"
+				quid       	"3AB45C6E019A"
+				result     	"HException"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "HException"
+				quid       	"3AB45C820348"
+				parameters 	(list Parameters
+				    (object Parameter "message"
+					type       	"String"))
+				result     	"HException"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "HException"
+				quid       	"3AB45CAA00AA"
+				parameters 	(list Parameters
+				    (object Parameter "exception"
+					type       	"Throwable")
+				    (object Parameter "message"
+					type       	"String"))
+				result     	"HException"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "addMessage"
+				quid       	"3AB45CFD0064"
+				parameters 	(list Parameters
+				    (object Parameter "message"
+					type       	"String"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getClassName"
+				quid       	"3AB45D27026C"
+				result     	"String"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getErrorCode"
+				quid       	"3AB45D3A00B4"
+				result     	"int"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getMessages"
+				quid       	"3AB45D5C0154"
+				result     	"Array"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getMessageStack"
+				quid       	"3AB45D7D00F0"
+				result     	"Vector"
+				concurrency 	"Sequential"
+				opExportControl 	"Protected"
+				uid        	0)
+			    (object Operation "getMethod"
+				quid       	"3AB45DAC032A"
+				result     	"String"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "getOriginalException"
+				quid       	"3AB45DCD0334"
+				result     	"Throwable"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "isRecoverable"
+				quid       	"3AB45DEE0118"
+				result     	"boolean"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "print"
+				quid       	"3AB45E0B000A"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "print"
+				quid       	"3AB45E1902DA"
+				parameters 	(list Parameters
+				    (object Parameter "writer"
+					type       	"PrintWriter"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "printMessages"
+				quid       	"3AB45E4503AC"
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "printMessages"
+				quid       	"3AB45E5301FE"
+				parameters 	(list Parameters
+				    (object Parameter "writer"
+					type       	"PrintWriter"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "setClassName"
+				quid       	"3AB45E7F029E"
+				parameters 	(list Parameters
+				    (object Parameter "name"
+					type       	"String"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "setErrorCode"
+				quid       	"3AB45EA201B8"
+				parameters 	(list Parameters
+				    (object Parameter "code"
+					type       	"int"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "setMethod"
+				quid       	"3AB45ECA02BC"
+				parameters 	(list Parameters
+				    (object Parameter "name"
+					type       	"String"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "setOriginalException"
+				quid       	"3AB45EF102EE"
+				parameters 	(list Parameters
+				    (object Parameter "exception"
+					type       	"Throwable"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0)
+			    (object Operation "setRecoverable"
+				quid       	"3AB45F3C037A"
+				parameters 	(list Parameters
+				    (object Parameter "canRecover"
+					type       	"boolean"))
+				concurrency 	"Sequential"
+				opExportControl 	"Public"
+				uid        	0))
+			class_attributes 	(list class_attribute_list
+			    (object ClassAttribute "originalException"
+				quid       	"3AB45B8A008C"
+				type       	"Throwable"
+				initv      	"null")
+			    (object ClassAttribute "messageStack"
+				quid       	"3AB45BB200B4"
+				type       	"Vector"
+				initv      	"new Vector()")
+			    (object ClassAttribute "recoverable"
+				quid       	"3AB45BDA0294"
+				type       	"boolean"
+				initv      	"false")
+			    (object ClassAttribute "errorCode"
+				quid       	"3AB45BF502E4"
+				type       	"int"
+				initv      	"0")
+			    (object ClassAttribute "className"
+				quid       	"3AB45C11038E"
+				type       	"String"
+				initv      	
+|""
+				)
+			    (object ClassAttribute "method"
+				quid       	"3AB45C360226"
+				type       	"String"
+				initv      	
+|""
+				)))
+		    (object Class "Exception"
+			quid       	"3AB45B540096"))
+		logical_presentations 	(list unit_reference_list
+		    (object ClassDiagram "Main"
+			quid       	"3AB45B2E00FA"
+			title      	"Main"
+			zoom       	100
+			max_height 	28350
+			max_width  	21600
+			origin_x   	0
+			origin_y   	0
+			items      	(list diagram_item_list
+			    (object ClassView "Class" "HException" @27
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(726, 1218)
+				label      	(object ItemLabel
+				    Parent_View 	@27
+				    location   	(133, 512)
+				    nlines     	1
+				    max_width  	1184
+				    justify    	0
+				    label      	"HException")
+				quidu      	"3AB45B430262"
+				compartment 	(object Compartment
+				    Parent_View 	@27
+				    location   	(95, 572)
+				    anchor     	2
+				    nlines     	27
+				    max_width  	1250)
+				width      	1280
+				height     	1436
+				annotation 	8
+				autoResize 	TRUE)
+			    (object ClassView "Class" "Exception" @28
+				IncludeAttribute 	TRUE
+				IncludeOperation 	TRUE
+				location   	(726, 270)
+				label      	(object ItemLabel
+				    Parent_View 	@28
+				    location   	(620, 221)
+				    nlines     	1
+				    max_width  	210
+				    justify    	0
+				    label      	"Exception")
+				quidu      	"3AB45B540096"
+				width      	228
+				height     	122
+				annotation 	8
+				autoResize 	TRUE)
+			    (object InheritView "" @29
+				quidu      	"3AB45B6400F0"
+				client     	@27
+				supplier   	@28
+				line_style 	0)
+			    (object Label @30
+				location   	(360, 84)
+				font       	(object Font
+				    size       	10
+				    face       	"Arial"
+				    bold       	TRUE
+				    italics    	FALSE
+				    underline  	FALSE
+				    strike     	FALSE
+				    color      	0
+				    default_color 	TRUE)
+				nlines     	1
+				max_width  	756
+				label      	"Visitor Demonstration - base package"))))))
+	logical_presentations 	(list unit_reference_list
+	    (object ClassDiagram "Main"
+		quid       	"3AB44D150281"
+		title      	"Main"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list
+		    (object CategoryView "xml" @31
+			location   	(858, 894)
+			label      	(object ItemLabel
+			    Parent_View 	@31
+			    location   	(714, 810)
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"xml")
+			quidu      	"3AB44D1E0096"
+			width      	300
+			height     	180)
+		    (object CategoryView "logging" @32
+			location   	(588, 408)
+			label      	(object ItemLabel
+			    Parent_View 	@32
+			    location   	(444, 324)
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"logging")
+			quidu      	"3AB44D200384"
+			width      	300
+			height     	180)
+		    (object CategoryView "base" @33
+			location   	(354, 894)
+			label      	(object ItemLabel
+			    Parent_View 	@33
+			    location   	(210, 810)
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"base")
+			quidu      	"3AB44D5003C0"
+			width      	300
+			height     	180)
+		    (object ImportView "" @34
+			quidu      	"3AB4606002F8"
+			client     	@32
+			supplier   	@33
+			line_style 	0)
+		    (object ImportView "" @35
+			quidu      	"3AB460620352"
+			client     	@32
+			supplier   	@31
+			line_style 	0)
+		    (object Label @36
+			location   	(300, 108)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    bold       	TRUE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			nlines     	1
+			max_width  	656
+			label      	"Visitor Demonstration Packages")))))
+    root_subsystem 	(object SubSystem "Component View"
+	quid       	"3AB44D150215"
+	physical_models 	(list unit_reference_list)
+	physical_presentations 	(list unit_reference_list
+	    (object Module_Diagram "Main"
+		quid       	"3AB44D150282"
+		title      	"Main"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    process_structure 	(object Processes
+	quid       	"3AB44D150216"
+	ProcsNDevs 	(list
+	    (object Process_Diagram "Deployment View"
+		quid       	"3AB44D150280"
+		title      	"Deployment View"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    properties 	(object Properties
+	attributes 	(list Attribute_Set
+	    (object Attribute
+		tool       	"Java"
+		name       	"roseId"
+		value      	"753117540")
+	    (object Attribute
+		tool       	"Java"
+		name       	"propertyId"
+		value      	"809135966")
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Project"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"CreateMissingDirectories"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"StopOnError"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Directory"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"Java"
+			name       	"GeneratePreserveRegions"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"UsePrefixes"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"InstanceVariablePrefix"
+			value      	"m_")
+		    (object Attribute
+			tool       	"Java"
+			name       	"ClassVariablePrefix"
+			value      	"s_")
+		    (object Attribute
+			tool       	"Java"
+			name       	"DefaultAttributeDataType"
+			value      	"int")
+		    (object Attribute
+			tool       	"Java"
+			name       	"DefaultOperationReturnType"
+			value      	"void")))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Class"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"JavaElement"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"ImplementedAs"
+			value      	("ImplementedAs_Set" 52))
+		    (object Attribute
+			tool       	"Java"
+			name       	"ImplementedAs_Set"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"Java"
+				name       	"Class"
+				value      	52)
+			    (object Attribute
+				tool       	"Java"
+				name       	"Interface"
+				value      	53)))
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateDefaultConstructor"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"ConstructorIs"
+			value      	("Ctor_Set" 62))
+		    (object Attribute
+			tool       	"Java"
+			name       	"Ctor_Set"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"Java"
+				name       	"Public"
+				value      	62)
+			    (object Attribute
+				tool       	"Java"
+				name       	"Protected"
+				value      	63)
+			    (object Attribute
+				tool       	"Java"
+				name       	"Private"
+				value      	64)))
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateFinalizer"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateStaticInitializer"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Category"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Generate"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Package"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"PackageName"
+			value      	(value Text ""))))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Module-Spec"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Generate"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"CmIdentification"
+			value      	(value Text "  %X% %Q% %Z% %W%"))
+		    (object Attribute
+			tool       	"Java"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"FileName"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"Java"
+			name       	"AdditionalImports"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"ImportBySimpleName"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Module-Body"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"CmIdentification"
+			value      	(value Text "  %X% %Q% %Z% %W%"))
+		    (object Attribute
+			tool       	"Java"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"FileName"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"Java"
+			name       	"AdditionalIncludes"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"IncludeBySimpleName"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Operation"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Abstract"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Static"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Native"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Synchronized"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Attribute"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Transient"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Volatile"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Has"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"ContainerClass"
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"InitialValue"
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Transient"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Volatile"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Role"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"ContainerClass"
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"InitialValue"
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Transient"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Volatile"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Subsystem"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Generate"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"DDL"
+		name       	"propertyId"
+		value      	"809135966")
+	    (object Attribute
+		tool       	"DDL"
+		name       	"default__Project"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DataBase"
+			value      	("DataBaseSet" 800))
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DataBaseSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"DDL"
+				name       	"ANSI"
+				value      	800)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"Oracle"
+				value      	801)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"SQLServer"
+				value      	802)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"Sybase"
+				value      	803)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"Watcom"
+				value      	804)))
+		    (object Attribute
+			tool       	"DDL"
+			name       	"PrimaryKeyColumnName"
+			value      	"Id")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"PrimaryKeyColumnType"
+			value      	"NUMBER(5)")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"ViewName"
+			value      	"V_")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"TableName"
+			value      	"T_")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"InheritSuffix"
+			value      	"_V")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DropClause"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"BaseViews"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DDLScriptFilename"
+			value      	"DDL1.SQL")))
+	    (object Attribute
+		tool       	"DDL"
+		name       	"default__Attribute"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"DDL"
+			name       	"ColumnType"
+			value      	"VARCHAR")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"Length"
+			value      	"")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"NullsOK"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"PrimaryKey"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"Unique"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"CompositeUnique"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"CheckConstraint"
+			value      	"")))
+	    (object Attribute
+		tool       	"cg"
+		name       	"propertyId"
+		value      	"809135966")
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Project"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"CreateMissingDirectories"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"StopOnError"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"Directory"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"cg"
+			name       	"GeneratePreserveRegions"
+			value      	TRUE)))
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Class"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"ImplementationType"
+			value      	"")
+		    (object Attribute
+			tool       	"cg"
+			name       	"ConstValue"
+			value      	"")
+		    (object Attribute
+			tool       	"cg"
+			name       	"GenerateDefaultSpecifier"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"DefaultSpecifier"
+			value      	"")
+		    (object Attribute
+			tool       	"cg"
+			name       	"IDLElement"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"IDLSpecificationType"
+			value      	("IDLSpecSet" 22))
+		    (object Attribute
+			tool       	"cg"
+			name       	"IDLSpecSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"cg"
+				name       	"Interface"
+				value      	22)
+			    (object Attribute
+				tool       	"cg"
+				name       	"Typedef"
+				value      	54)
+			    (object Attribute
+				tool       	"cg"
+				name       	"Enumeration"
+				value      	8)
+			    (object Attribute
+				tool       	"cg"
+				name       	"Const"
+				value      	71)
+			    (object Attribute
+				tool       	"cg"
+				name       	"Exception"
+				value      	61)
+			    (object Attribute
+				tool       	"cg"
+				name       	"Struct"
+				value      	51)
+			    (object Attribute
+				tool       	"cg"
+				name       	"Union"
+				value      	81)))))
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Category"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"GenerateIDLModule"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"ModuleName"
+			value      	(value Text ""))))
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Module-Spec"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"Generate"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"CmIdentification"
+			value      	(value Text "  %X% %Q% %Z% %W%"))
+		    (object Attribute
+			tool       	"cg"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"cg"
+			name       	"FileName"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"cg"
+			name       	"GenerateIDLModule"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"InclusionProtectionSymbol"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"cg"
+			name       	"AdditionalIncludes"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"cg"
+			name       	"IncludeBySimpleName"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Module-Body"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"CmIdentification"
+			value      	(value Text "  %X% %Q% %Z% %W%"))
+		    (object Attribute
+			tool       	"cg"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"cg"
+			name       	"FileName"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"cg"
+			name       	"AdditionalIncludes"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"cg"
+			name       	"IncludeBySimpleName"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Operation"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"OperationIsOneWay"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"Context"
+			value      	"")
+		    (object Attribute
+			tool       	"cg"
+			name       	"Raises"
+			value      	"")))
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Attribute"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"CaseSpecifier"
+			value      	"")
+		    (object Attribute
+			tool       	"cg"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"cg"
+			name       	"IsReadOnly"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Has"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"NameIfUnlabeled"
+			value      	"the_$supplier")
+		    (object Attribute
+			tool       	"cg"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"cg"
+			name       	"GenerateForwardReference"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"IsReadOnly"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"BoundedHasRelType"
+			value      	("HasRelTypeSet" 47))
+		    (object Attribute
+			tool       	"cg"
+			name       	"HasRelTypeSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"cg"
+				name       	"Array"
+				value      	24)
+			    (object Attribute
+				tool       	"cg"
+				name       	"Sequence"
+				value      	47)))))
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Role"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"NameIfUnlabeled"
+			value      	"the_$supplier")
+		    (object Attribute
+			tool       	"cg"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"cg"
+			name       	"GenerateForwardReference"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"IsReadOnly"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"cg"
+			name       	"BoundedRoleType"
+			value      	("AssocTypeSet" 47))
+		    (object Attribute
+			tool       	"cg"
+			name       	"AssocTypeSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"cg"
+				name       	"Array"
+				value      	24)
+			    (object Attribute
+				tool       	"cg"
+				name       	"Sequence"
+				value      	47)))))
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Uses"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"GenerateForwardReference"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"cg"
+		name       	"default__Subsystem"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"cg"
+			name       	"Directory"
+			value      	"AUTO GENERATE"))))
+	quid       	"3AB44D150217"))

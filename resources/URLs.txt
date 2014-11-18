@@ -1,0 +1,7 @@
+Java Tip 98: Reflect on the Visitor design pattern - Implement visitors in Java, using reflection
+=====================================================================
+http://www.javaworld.com/javaworld/javatips/jw-javatip98_p.html
+
+Variations on the Visitor pattern
+=====================================================================
+http://citeseer.nj.nec.com/cache/papers2/cs/2228/http:zSzzSzwww.cs.wustl.eduzSz~schmidtzSzPLoP-96zSznordberg.pdf/variations-on-the-visitor.pdf

@@ -1,0 +1,582 @@
+<HTML>
+<HEAD>
+<TITLE>Java Tip 98: Reflect on the Visitor design pattern - JavaWorld  </TITLE>
+<META NAME="description" content="
+The Visitor pattern is often used to separate the structure of an object collection from the operations performed on that collection. For example, it can separate the parsing logic in a compiler from the code generation logic. By keeping those separate, you can easily use different code generators. Even better, other utilities such as lint can use the parsing logic without dragging along the code generation logic. Unfortunately, adding new object types to a collection often requires modifying the visitor classes that have already been written. This article presents a more flexible approach to implementing visitors in Java, using reflection. (1,600 words)
+">
+<META NAME="date" content="2001-02-21">
+<META NAME="keywords" content="JavaWorld, Java, visitor, reflection, patterns">
+<META NAME="author" content="Jeremy Blosser">
+<META NAME="publicationDate" content="2000-07-14">
+
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" ALINK="#FF0000" VLINK="#551a8b" MARGINHEIGHT="0" TOPMARGIN="0">
+<!-- stopindex -->
+
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" WIDTH="100%" BGCOLOR="#336699">
+<tr>
+<td>
+<!--BEGIN_ITworld_NAV-->
+<table width="100%" height="23" border="0" cellspacing="0" cellpadding="0" align="left" bgcolor="#000000">
+<tr>
+<td width="200" align="left"><a href="http://www.itworld.com/jump/JW_HOME/www.itworld.com">
+<IMG align=left alt="The ITworld.com Network" border=0 height=23 src="http://a301.g.akamai.net/7/301/1403/v001/www.itworld.com/images/IT3d_glow_23H.jpg" width=161 ></a></td>
+<td width="271">&nbsp;<!--Universal IDG Pixel-->
+<A HREF="http://ad.doubleclick.net/jump/idg.pixel.global/idgpixel7.18.00;sz=1x1;ord=26000301">
+<IMG SRC="http://ad.doubleclick.net/ad/idg.pixel.global/idgpixel7.18.00;sz=1x1;ord=26000301" border=0 height="1" width="1"></A>
+
+<!--USA ITWorld-->
+<A HREF="http://ad.doubleclick.net/jump/idg.pixel.usa.itw/usaitw11.7.00;sz=1x1;ord=26000301">
+<IMG SRC="http://ad.doubleclick.net/ad/idg.pixel.usa.itw/usaitw11.7.00;sz=1x1;ord=26000301" border=0 height="1" width="1"></A>
+
+<!--Netbug-->
+<IMG SRC='http://nav4.itworld.com:8080/jwb.gif?www.javaworld.com/javaworld/javatips/jw-javatip98_p.html'> </td>
+<td width="100" align="middle"><a href="http://www.itworld.com/jump/JW_SEARCH/search.itworld.com/"><strong><FONT face="Verdana,Helvetica,Arial" size="-2" color=#ffffff>Network Search</FONT></strong></a></td>
+<td width="5" align="middle"><font face="Verdana,Helvetica,Arial" size="-2" color="#ffcc00">¦</font></td>
+<td width="38" align="middle"><a href="http://www.itworld.com/jump/JW_SITES/www.itworld.com/Sites/"><font face="Verdana,Helvetica,Arial" size="-2" color="#ffffff"><strong>Sites</STRONG></font></A></td>
+<td width="5" align="middle"><font face="Verdana,Helvetica,Arial" size="-2" color="#ffcc00">¦</font></td>
+<td width="60" align="middle"><a href="http://www.itworld.com/jump/JW_SERVICES/www.itworld.com/Services/"><font face="Verdana,Helvetica,Arial" size="-2" color="#ffffff"><strong>Services</STRONG></font></A></td>
+<td width="5" align="middle"><font face="Verdana,Helvetica,Arial" size="-2" color="#ffcc00">¦</font></td>
+<td width="65" align="middle"><a href="http://www.itworld.com/jump/JW_ITCAREERS/www.itcareers.com"><font face="Verdana,Helvetica,Arial" size="-2" color="#ffffff"><strong>ITcareers</STRONG></font></A></td>
+<td width="5" align="middle"><font face="Verdana,Helvetica,Arial" size="-2" color="#ffcc00">¦</font></td>
+<td width="100" align="middle"><a href="http://www.itworld.com/jump/JW_KNOWSTORM/www.itworld.com/Finder/"><font face="Verdana,Helvetica,Arial" size="-2" color="#ffffff"><strong>Product Finder</STRONG></font></A></td>
+<td width="5" align="middle">&nbsp;</td>
+</tr></table>
+<!--END_ITworld_NAV-->
+</td>
+<tr>
+<td align="center" valign="center">
+
+<TABLE CELLPADDING="0" CELLSPACING="0" BORDER="0">
+<TR>
+<TD>
+<FONT SIZE="-1">Advertisement: Support JavaWorld, click here!</FONT><BR>
+<NOLAYER>
+<IFRAME SRC="http://ad.doubleclick.net/adi/idg.us.javaworld/;pos=top;sz=468x60;tile=1;ord=26000301?" width="468" height="60" frameborder="no" border="0" MARGINWIDTH="0" MARGINHEIGHT="0" SCROLLING="no">
+<A HREF="http://ad.doubleclick.net/jump/idg.us.javaworld/;abr=!ie;pos=top;sz=468x60;tile=1;ord=26000301?"><IMG SRC="http://ad.doubleclick.net/ad/idg.us.javaworld/;abr=!ie;pos=top;sz=468x60;tile=1;ord=26000301?" border=0 height="60" width="468"></A>
+</IFRAME>
+</NOLAYER>
+<ILAYER id="layer1" visibility="hidden" width=468 height=60></ILAYER>
+</TD>
+</TR>
+</TABLE>
+
+<IMG SRC="http://a301.g.akamai.net/7/301/1403/v001/www.javaworld.com/javaworld/icons/blue.gif" WIDTH="100%" HEIGHT="2"><BR>
+<TABLE BGCOLOR="#cccccc" WIDTH="100%" CELLPADDING="5" CELLSPACING="0" BORDER="0">
+<TR>
+<TD>
+<CENTER>
+<STRONG> </STRONG><BR>
+<A HREF="/javaworld/home.html"><IMG SRC="http://a301.g.akamai.net/7/301/1403/v001/www.javaworld.com/javaworld/icons-rd/jwlogo-132.gif" VSPACE="5" WIDTH="132" HEIGHT="41" BORDER="0"></A><BR>
+<FONT size="-1">
+<STRONG>FUELING INNOVATION</STRONG>
+</FONT>
+</CENTER>
+</TD>
+<TD>
+
+<P>
+<FONT FACE="Arial,Helvetica,Sans-serif"><STRONG><U>Search</U></STRONG></FONT><br>
+<font size="-2" FACE="Arial,Helvetica,Sans-serif">put phrases in quotes</font>
+
+<FORM ACTION="http://search.itworld.com/query.html" METHOD="GET" name="seek">
+
+<TABLE BORDER="0" cellspacing="0" cellpadding="3">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+
+<INPUT TYPE="HIDDEN" NAME="col" SIZE="-1" VALUE="jw">
+<!-- This is the text box for search terms -->
+<!--See above-->
+<INPUT TYPE="TEXT" NAME="qt" SIZE="12" MAXLENGTH="2047">
+<input type="image" value="search" src="http://a301.g.akamai.net/7/301/1403/v001/www.javaworld.com/javaworld/icons-rd/button_blue.gif" border="0" width="27" height="25" alt="GO">
+</TD>
+</TR>
+</TABLE>
+</FORM>
+</TD>
+<TD>
+<FONT FACE="Arial,Helvetica,Sans-serif">
+<STRONG>
+<A HREF="/javaworld/topicalindex/jw-ti-index.html">Topical&#160;index</A><BR>
+<A HREF="/javaworld/netnews/">Net&#160;News&#160;Central</A><BR>
+<A HREF="/javaworld/tools/">Developer&#160;Tools&#160;Guide</A><BR>
+<A HREF="/javaworld/books/">Book&#160;Catalog</A><BR>
+<A HREF="/javaworld/common/jw-guidelines.html">Writers&#160;Guidelines</A><BR>
+<A HREF="/javaworld/common/jw-privacy.html">Privacy&#160;Policy</A><BR>
+<A HREF="/javaworld/common/jw-copyright.html">Copyright</A>
+</STRONG>
+</FONT>
+</TD>
+</TR>
+</TABLE>
+</td>
+</tr>
+</table>
+
+<!--Begin-Survey-->
+<NOLAYER>
+<IFRAME SRC="http://ad.doubleclick.net/adi/idg.us.jwsurvey/jwsurvey121900;sz=1x1;tile=16;ord=26000301?" width="1" height="1" frameborder="no" border="0" MARGINWIDTH="0" MARGINHEIGHT="0" SCROLLING="no">
+<A HREF="http://ad.doubleclick.net/jump/idg.us.jwsurvey/jwsurvey121900;abr=!ie;sz=1x1;tile=16;ord=26000301?"><IMG SRC="http://ad.doubleclick.net/ad/idg.us.jwsurvey/jwsurvey121900;abr=!ie;sz=1x1;tile=16;ord=26000301?" border=0 height="1" width="1"></A>
+</IFRAME>
+</NOLAYER>
+<ILAYER id="layer16" visibility="hidden" width=1 height=1></ILAYER>
+<!--End-Survey-->
+
+<!-- startindex -->
+
+<font color="#336699" size="+1" face="Arial,Helvetica,Sans-serif">
+<strong>Tips 'N Tricks</strong>
+</font>
+
+<H1 ALIGN="CENTER">
+Java Tip 98: Reflect on the Visitor design pattern
+</H1>
+
+<H3 ALIGN="CENTER">
+Implement visitors in Java, using reflection
+</H3>
+
+<BLOCKQUOTE>
+<STRONG>Summary</STRONG><BR>
+
+The Visitor pattern is often used to separate the structure of an object collection from the operations performed on that collection. For example, it can separate the parsing logic in a compiler from the code generation logic. By keeping those separate, you can easily use different code generators. Even better, other utilities such as lint can use the parsing logic without dragging along the code generation logic. Unfortunately, adding new object types to a collection often requires modifying the visitor classes that have already been written. This article presents a more flexible approach to implementing visitors in Java, using reflection. <em>(1,600 words)</em>
+
+</BLOCKQUOTE>
+
+<STRONG>By <A HREF="mailto:jeremy.blosser@javaworld.com">Jeremy Blosser</A></STRONG>
+
+<P>
+<IMG border="0" width="100%" height="2" SRC="http://a301.g.akamai.net/7/301/1403/v001/www.javaworld.com/javaworld/icons/blue.gif" ALT="">
+<P>
+
+
+<TABLE HSPACE="5" ALIGN="RIGHT" BGCOLOR="#cccccc" WIDTH="200" CELLPADDING="2" CELLSPACING="0" BORDER="0">
+<TR>
+<TH COLSPAN="2" BGCOLOR="#990033">
+<font color="#FFFFFF" size="-1" face="Arial, Helvetica, Sans-serif">
+Java Tips
+</font>
+</TH>
+</TR>
+<TR>
+<TD VALIGN="TOP" ALIGN="CENTER">
+<IMG SRC="http://a301.g.akamai.net/7/301/1403/v001/www.javaworld.com/javaworld/icons/dot_clear.gif" WIDTH="3" HEIGHT="3" BORDER="0">
+</TD>
+<TD>
+<font size="-1" face="Arial, Helvetica, Sans-serif">
+<BR>
+For a comprehensive list of Java Tips published in 
+<em>JavaWorld,</em> see the
+<a href="/javaworld/javatips/jw-javatips.index.html">Java Tips Index</A>
+<P> 
+Do you have a tip that would benefit <em>JavaWorld's</em> 
+readers? We would like to pass it on! Submit your tip to 
+<A HREF="mailto:javatips@javaworld.com">javatips@javaworld.com</A>.
+<BR>
+<BR>
+</font>
+</TD>
+</TR>
+</TABLE>
+
+<!-- begin body text -->
+
+Collections are commonly used in object-oriented programming and often raise code-related questions. For example, "How do you perform an operation across a collection of different objects?"
+<P>
+One approach is to iterate through each element in the collection and then do something specific to each element, based on its class. That can get pretty tricky, especially if you don't know what type of objects are in the collection. If you wanted to print out the elements in the collection, you could write a method like this:
+<P>
+<code>
+<BR>
+public void messyPrintCollection(Collection collection) {<BR>
+&nbsp;&nbsp;&nbsp;Iterator iterator = collection.iterator()<BR>
+&nbsp;&nbsp;&nbsp;while (iterator.hasNext())<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(iterator.next().toString())<BR>
+}<BR>
+<BR>
+</code>
+<P>
+That seems simple enough. You just call the <code>Object.toString()</code> method and print out the object, right? What if, for example, you have a vector of hashtables? Then things start to get more complicated. You must check the type of object returned from the collection:
+<P>
+<code>
+<BR>
+public void messyPrintCollection(Collection collection) {<BR>
+&nbsp;&nbsp;&nbsp;Iterator iterator = collection.iterator()<BR>
+&nbsp;&nbsp;&nbsp;while (iterator.hasNext()) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object o = iterator.next();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (o instanceof Collection)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messyPrintCollection((Collection)o);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(o.toString());<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+}<BR>
+<BR>
+</code>
+<P>
+OK, so now you have handled nested collections, but what about other objects that do not return the <code>String</code> that you need from them? What if you want to add quotes around <code>String</code> objects and add an f after <code>Float</code> objects? The code gets still more complex:
+<P>
+<code>
+<BR>
+public void messyPrintCollection(Collection collection) {<BR>
+&nbsp;&nbsp;&nbsp;Iterator iterator = collection.iterator()<BR>
+&nbsp;&nbsp;&nbsp;while (iterator.hasNext()) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object o = iterator.next();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (o instanceof Collection)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messyPrintCollection((Collection)o);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if (o instanceof String)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("'"+o.toString()+"'");<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if (o instanceof Float)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(o.toString()+"f");<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(o.toString());<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+}<BR>
+<BR>
+</code>
+<P>
+You can see that things can start to get intricate really fast. You don't want a piece of code with a huge list of if-else statements! How do you avoid that? The Visitor pattern comes to the rescue.
+<P>
+To implement the Visitor pattern, you create a <code>Visitor</code> interface for the visitor, and a <code>Visitable</code> interface for the collection to be visited. You then have concrete classes that implement the <code>Visitor</code> and <code>Visitable</code> interfaces. The two interfaces look like this:
+<P>
+<code>
+<BR>
+public interface Visitor<BR>
+<BR>
+{<BR>
+&nbsp;&nbsp;&nbsp;public void visitCollection(Collection collection);<BR>
+&nbsp;&nbsp;&nbsp;public void visitString(String string);<BR>
+&nbsp;&nbsp;&nbsp;public void visitFloat(Float float);<BR>
+}<BR>
+<BR>
+<BR>
+<BR>
+public interface Visitable<BR>
+<BR>
+{<BR>
+&nbsp;&nbsp;&nbsp;public void accept(Visitor visitor);<BR>
+}<BR>
+<BR>
+</code>
+<P>
+For a concrete <code>String</code>, you might have:
+<P>
+<code>
+<BR>
+public class VisitableString implements Visitable<BR>
+{<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;private String value;<BR>
+&nbsp;&nbsp;&nbsp;public VisitableString(String string) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = string;<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;public void accept(Visitor visitor) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visitor.visitString(this);<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+}<BR>
+<BR>
+</code>
+<P>
+In the accept method, you call the correct visitor method for <code>this</code> type:
+<P>
+<code>
+<BR>
+visitor.visitString(this)<BR>
+<BR>
+</code>
+<P>
+That lets you implement a concrete <code>Visitor</code> as the following:
+<P>
+<code>
+<BR>
+public class PrintVisitor implements Visitor<BR>
+{<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;public void visitCollection(Collection collection) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Iterator iterator = collection.iterator()<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while (iterator.hasNext()) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Object o = iterator.next();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (o instanceof Visitable)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((Visitable)o).accept(this);<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;public void visitString(String string) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("'"+string+"'");<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;public void visitFloat(Float float) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(float.toString()+"f");<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+}<BR>
+<BR>
+</code>
+<P>
+By then implementing a <code>VisitableFloat</code> class and a <code>VisitableCollection</code> class that each call the appropriate visitor methods, you get the same result as the messy if-else <code>messyPrintCollection</code> method but with a much cleaner approach. In <code>visitCollection()</code>, you call <code>Visitable.accept(this)</code>, which in turn calls the correct visitor method. That is called a double-dispatch; the <code>Visitor</code> calls a method in the <code>Visitable</code> class, which calls back into the <code>Visitor</code> class.
+<P>
+Although you've cleaned up an if-else statement by implementing the visitor, you've still introduced a lot of extra code. You've had to wrap your original objects, <code>String</code> and <code>Float</code>, in objects implementing the <code>Visitable</code> interface. Although annoying, that is normally not a problem since the collections you are usually visiting can be made to contain only objects that implement the <code>Visitable</code> interface.
+<P>
+Still, it seems like a lot of extra work. Worse, what happens when you add a new <code>Visitable</code> type, say <code>VisitableInteger</code>? That is one major drawback of the Visitor pattern. If you want to add a new <code>Visitable</code> object, you have to change the <code>Visitor</code> interface and then implement that method in each of your <code>Visitor</code> implementation classes. You could use an abstract base class <code>Visitor</code> with default no-op functions instead of an interface. That would be similar to the <code>Adapter</code> classes in Java GUIs. The problem with that approach is that you need to use up your single inheritance, which you often want to save for something else, such as extending <code>StringWriter</code>. It would also limit you to only be able to visit <code>Visitable</code> objects successfully.
+<P>
+Luckily, Java lets you make the Visitor pattern much more flexible so you can add <code>Visitable</code> objects at will. How? The answer is by using reflection. With a <code>ReflectiveVisitor</code>, you only need one method in your interface:
+<P>
+<code>
+<BR>
+public interface ReflectiveVisitor {<BR>
+&nbsp;&nbsp;&nbsp;public void visit(Object o);<BR>
+}<BR>
+<BR>
+</code>
+<P>
+OK, that was easy enough. <code>Visitable</code> can stay the same, and I'll get to that in a minute. For now, I'll implement <code>PrintVisitor</code> using reflection:
+<P>
+<code>
+<BR>
+public class PrintVisitor implements ReflectiveVisitor {<BR>
+&nbsp;&nbsp;&nbsp;public void visitCollection(Collection collection)<BR>
+&nbsp;&nbsp;&nbsp;{ ... same as above ... }<BR>
+&nbsp;&nbsp;&nbsp;public void visitString(String string)<BR>
+&nbsp;&nbsp;&nbsp;{ ... same as above ... }<BR>
+&nbsp;&nbsp;&nbsp;public void visitFloat(Float float)<BR>
+&nbsp;&nbsp;&nbsp;{ ... same as above ... }<BR>
+<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;public void default(Object o)<BR>
+&nbsp;&nbsp;&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(o.toString());<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;public void visit(Object o) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Class.getName() returns package information as well.<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// This strips off the package information giving us<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// just the class name<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String methodName = o.getClass().getName();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;methodName = "visit"+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;methodName.substring(methodName.lastIndexOf('.')+1);<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Now we try to invoke the method visit<methodName><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Get the method visitFoo(Foo foo)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Method m = getClass().getMethod(methodName,<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new Class[] { o.getClass() });<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Try to invoke visitFoo(Foo foo)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m.invoke(this, new Object[] { o });<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (NoSuchMethodException e) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// No method, so do the default implementation<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default(o);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+}<BR>
+<BR>
+</code>
+<P>
+Now you don't need the <code>Visitable</code> wrapper class. You can just call <code>visit()</code>, and it will dispatch to the correct method. One nice aspect is that <code>visit()</code> can dispatch however it sees fit. It doesn't have to use reflection -- it can use a totally different mechanism.
+<P>
+With the new <code>PrintVisitor</code>, you have methods for <code>Collections</code>, <code>Strings</code>, and <code>Floats</code>, but then you catch all the unhandled types in the catch statement. You'll expand upon the <code>visit()</code> method so that you can try all the superclasses as well. First, you'll add a new method called <code>getMethod(Class c)</code> that will return the method to invoke, which looks for a matching method for all the superclasses of <code>Class c</code> and then all the interfaces for <code>Class c</code>. 
+<P>
+<code>
+<BR>
+protected Method getMethod(Class c) {<BR>
+&nbsp;&nbsp;&nbsp;Class newc = c;<BR>
+&nbsp;&nbsp;&nbsp;Method m = null;<BR>
+&nbsp;&nbsp;&nbsp;// Try the superclasses<BR>
+&nbsp;&nbsp;&nbsp;while (m == null && newc != Object.class) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String method = newc.getName();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method = "visit" + method.substring(method.lastIndexOf('.') + 1);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m = getClass().getMethod(method, new Class[] {newc});<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (NoSuchMethodException e) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newc = newc.getSuperclass();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;// Try the interfaces.  If necessary, you<BR>
+&nbsp;&nbsp;&nbsp;// can sort them first to define 'visitable' interface wins<BR>
+&nbsp;&nbsp;&nbsp;// in case an object implements more than one.<BR>
+&nbsp;&nbsp;&nbsp;if (newc == Object.class) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Class[] interfaces = c.getInterfaces();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (int i = 0; i < interfaces.length; i++) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String method = interfaces[i].getName();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method = "visit" + method.substring(method.lastIndexOf('.') + 1);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m = getClass().getMethod(method, new Class[] {interfaces[i]});<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (NoSuchMethodException e) {}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;if (m == null) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m = thisclass.getMethod("visitObject", new Class[] {Object.class});<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (Exception e) {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Can't happen<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;return m;<BR>
+}<BR>
+<BR>
+</code>
+<P>
+It looks complicated, but it really isn't. Basically, you just look for methods based on the name of the class you have passed in. If you don't find one, you try its superclasses. Then if you don't find any of those, you try any interfaces. Lastly, you can just try <code>visitObject()</code> as a default.
+<P>
+Note that for the sake of those familiar with the traditional Visitor pattern, I've followed the same naming convention for the method names. However, as some of you may have noticed, it would be more efficient to name all the methods "visit" and let the parameter type be the differentiator. If you do that, however, make sure you change the main <code>visit(Object o)</code> method name to something like <code>dispatch(Object o)</code>. Otherwise, you won't have a default method to fall back on, and you would need to cast to <code>Object</code> whenever you call <code>visit(Object o)</code> to assure the correct method calling pattern was followed.
+<P>
+Now, you modify the <code>visit()</code> method to take advantage of <code>getMethod()</code>:
+<P>
+<code>
+public void visit(Object object) {<BR>
+&nbsp;&nbsp;&nbsp;try {<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Method method = getMethod(getClass(), object.getClass());<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method.invoke(this, new Object[] {object});<BR>
+&nbsp;&nbsp;&nbsp;} catch (Exception e) { }<BR>
+}<BR>
+<BR>
+</code>
+<P>
+Now, your visitor object is much more powerful. You can pass in any arbitrary object and have some method that uses it. Plus, you gain the added benefit of having a default method <code>visitObject(Object o)</code> that can catch anything you don't specify. With a little more work, you can even add a method for <code>visitNull()</code>.
+<P>
+I've kept the <code>Visitable</code> interface in there for a reason. Another side benefit of the traditional Visitor pattern is that it allows the <code>Visitable</code> objects to control navigation of the object structure. For example, if you had a <code>TreeNode</code> object that implemented <code>Visitable</code>, you could have an <code>accept()</code> method that traverses to its left and right nodes:
+<P>
+<code>
+<BR>
+public void accept(Visitor visitor) {<BR>
+&nbsp;&nbsp;&nbsp;visitor.visitTreeNode(this);<BR>
+&nbsp;&nbsp;&nbsp;visitor.visitTreeNode(leftsubtree);<BR>
+&nbsp;&nbsp;&nbsp;visitor.visitTreeNode(rightsubtree);<BR>
+}<BR>
+<BR>
+</code>
+<P>
+So, with just one more modification to the <code>Visitor</code> class, you can allow for <code>Visitable</code>-controlled navigation:
+<P>
+<code>
+<BR>
+public void visit(Object object) throws Exception<BR>
+<BR>
+{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Method method = getMethod(getClass(), object.getClass());<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method.invoke(this, new Object[] {object});<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (object instanceof Visitable)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callAccept((Visitable) object);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+}<BR>
+<BR>
+public void callAccept(Visitable visitable) {<BR>
+&nbsp;&nbsp;&nbsp;visitable.accept(this);<BR>
+}<BR>
+<BR>
+</code>
+<P>
+If you've implemented a <code>Visitable</code> object structure, you can keep the <code>callAccept()</code> method as is and use <code>Visitable</code>-controlled navigation. If you want to navigate the structure within the visitor, you just override the <code>callAccept()</code> method to do nothing.
+<P>
+The power of the Visitor pattern comes into play when using several different visitors across the same collection of objects. For example, I have an interpreter, an infix writer, a postfix writer, an XML writer, and a SQL writer working across the same collection of objects. I could easily write a prefix writer or a SOAP writer for the same collection of objects. In addition, those writers can gracefully work with objects they don't know about or, if I choose, they can throw an exception.
+<P>
+<FONT SIZE="+1"><STRONG>Conclusion</STRONG></FONT><BR>
+By using Java reflection, you can enhance the Visitor design pattern to provide a powerful way to operate on object structures, giving the flexibility to add new <code>Visitable</code> types as needed. I hope you are able to use that pattern somewhere in your coding travels.
+
+
+<IMG HEIGHT="8" WIDTH="8" SRC="http://a301.g.akamai.net/7/301/1403/v001/www.javaworld.com/javaworld/icons/dingbat.gif">
+<!-- end body text -->
+
+
+
+<P>
+<A NAME="bio">
+<TABLE CELLPADDING="0" CELLSPACING="3" BORDER="0" WIDTH="100%">
+<TR>
+<TD VALIGN="CENTER">
+
+</TD>
+<TD BGCOLOR="#000000"><IMG SRC="http://a301.g.akamai.net/7/301/1403/v001/www.javaworld.com/javaworld/icons/dot_clear.gif" WIDTH="2" HEIGHT="1" ALIGN="BOTTOM" BORDER="0"></TD>
+<TD VALIGN="TOP">
+<STRONG>
+<FONT SIZE="-1" FACE="Arial,Helvetica,Sans-serif">
+About the author
+</FONT>
+</STRONG><BR>
+
+<a href="mailto:jeremy.blosser@javaworld.com">Jeremy Blosser</a> has been programming in Java for five years, during which he has worked for various software companies. He now works for a startup company, <a href="http://www.so-in.com">Software Instruments.</a> You can visit Jeremy's Website at <a href="http://www.blosser.org">http://www.blosser.org</a>.
+
+</TD>
+</TR>
+</TABLE>
+<!-- stopindex -->
+
+
+<P>
+<DIV ALIGN="CENTER">
+<FONT FACE="Arial,Helvetica,Sans-serif">
+<A HREF="/javaworld/home.html">Home</A> |
+<A HREF="/javaworld/cgi-bin/jw-mailToFriend.cgi?head=Java%20Tip%2098%3A%20Reflect%20on%20the%20Visitor%20design%20pattern&author=Jeremy%20Blosser&summary=%0AThe%20Visitor%20pattern%20is%20often%20used%20to%20separate%20the%20structure%20of%20an%20object%20collection%20from%20the%20operations%20performed%20on%20that%20collection.%20For%20example%2C%20it%20can%20separate%20the%20parsing%20logic%20in%20a%20compiler%20from%20the%20code%20generation%20logic.%20By%20keeping%20those%20separate%2C%20you%20can%20easily%20use%20different%20code%20generators.%20Even%20better%2C%20other%20utilities%20such%20as%20lint%20can%20use%20the%20parsing%20logic%20without%20dragging%20along%20the%20code%20generation%20logic.%20Unfortunately%2C%20adding%20new%20object%20types%20to%20a%20collection%20often%20requires%20modifying%20the%20visitor%20classes%20that%20have%20already%20been%20written.%20This%20article%20presents%20a%20more%20flexible%20approach%20to%20implementing%20visitors%20in%20Java%2C%20using%20reflection.%20%3Cem%3E%281%2C600%20words%29%3C%2Fem%3E%0A">Mail&nbsp;this&nbsp;Story</A> |
+
+
+<A HREF="#resources">Resources&nbsp;and&nbsp;Related&nbsp;Links</A>
+</FONT>
+</DIV>
+
+<P>
+<TABLE WIDTH="100%" BGCOLOR="#336699" CELLPADDING="5" CELLSPACING="0" BORDER="0">
+<TR>
+<TD ALIGN="CENTER">
+<TABLE CELLPADDING="0" BORDER="0">
+<TR>
+<TD>
+<FONT COLOR="#cccccc" SIZE="-1" FACE="Arial,Helvetica,Sans-serif">
+Advertisement: Support JavaWorld, click here!</FONT><BR>
+<NOLAYER>
+<IFRAME SRC="http://ad.doubleclick.net/adi/idg.us.javaworld/;pos=bottom;sz=468x60;tile=7;ord=26000301?" width="468" height="60" frameborder="no" border="0" MARGINWIDTH="0" MARGINHEIGHT="0" SCROLLING="no">
+<A HREF="http://ad.doubleclick.net/jump/idg.us.javaworld/;abr=!ie;pos=bottom;sz=468x60;tile=7;ord=26000301?"><IMG SRC="http://ad.doubleclick.net/ad/idg.us.javaworld/;abr=!ie;pos=bottom;sz=468x60;tile=7;ord=26000301?" border=0 height="60" width="468"></A>
+</IFRAME>
+</NOLAYER>
+<ILAYER id="layer7" visibility="hidden" width=468 height=60></ILAYER>
+</TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+</TABLE>
+
+<P ALIGN="CENTER">
+<A HREF="/javaworld/common/jw-copyright.html">(c) Copyright  ITworld.com, Inc., an IDG Communications company</A>
+</P>
+
+<P>
+<A NAME="resources"><STRONG>Resources</STRONG></A>
+<UL>
+
+<LI>Patterns homepage:
+<BR><A HREF="http://www.hillside.net/patterns/">http://www.hillside.net/patterns/</A>
+<LI><em>Design Patterns: Elements of Reusable Object-Oriented Software,</em> Erich Gamma, et al. (Addison-Wesley, 1995):
+<BR><A HREF="http://www.amazon.com/exec/obidos/ASIN/0201633612/o/qid=963253562/sr=2-1/002-9334573-2800059">http://www.amazon.com/exec/obidos/ASIN/0201633612/o/qid=963253562/sr=2-1/002-9334573-2800059</A>
+<LI><em>Patterns in Java, Volume 1,</em> Mark Grand (John Wiley & Sons, 1998):
+<BR><A HREF="http://www.amazon.com/exec/obidos/ASIN/0471258393/o/qid=962224460/sr=2-1/104-2583450-5558345">http://www.amazon.com/exec/obidos/ASIN/0471258393/o/qid=962224460/sr=2-1/104-2583450-5558345</A>
+<LI><em>Patterns in Java, Volume 2,</em> Mark Grand (John Wiley & Sons, 1999):
+<BR><A HREF="http://www.amazon.com/exec/obidos/ASIN/0471258415/qid=962224460/sr=1-4/104-2583450-5558345">http://www.amazon.com/exec/obidos/ASIN/0471258415/qid=962224460/sr=1-4/104-2583450-5558345</A>
+<LI>View all previous Java Tips and submit your own:
+<BR><A HREF="http://www.javaworld.com/javatips/jw-javatips.index.html">http://www.javaworld.com/javatips/jw-javatips.index.html</A>
+</UL>
+
+
+Feedback: 
+<A NAME="jweditors" HREF="/javaworld/cgi-bin/jw-mailto.cgi?jweditors@javaworld.com+/javaworld/javatips/jw-javatip98.html+jweditors">jweditors@javaworld.com</A><BR>
+Technical difficulties: 
+<A NAME="webmaster" HREF="/javaworld/cgi-bin/jw-mailto.cgi?webmaster@javaworld.com+/javaworld/javatips/jw-javatip98.html+webmaster">webmaster@javaworld.com</A><BR>
+URL: http://www.javaworld.com/javatips/jw-javatip98.html
+<BR>
+
+Last modified: Wednesday, February 21, 2001
+
+
+<center>
+<LAYER SRC="http://ad.doubleclick.net/adl/idg.us.javaworld/;pos=top;sz=468x60;tile=1;ord=26000301?" width=468 height=60 visibility="hidden" onLoad="moveToAbsolute(layer1.pageX,layer1.pageY);clip.height=60;clip.width=468; visibility='show';"></LAYER>
+</center>
+
+<LAYER SRC="http://ad.doubleclick.net/adl/idg.us.javaworld/;pos=bottom;sz=468x60;tile=7;ord=26000301?" width=468 height=60 visibility="hidden" onLoad="moveToAbsolute(layer7.pageX,layer7.pageY);clip.height=60;clip.width=468; visibility='show';"></LAYER>
+
+<!--Begin-Survey-->
+<LAYER SRC="http://ad.doubleclick.net/adl/idg.us.jwsurvey/jwsurvey121900;sz=1x1;tile=16;ord=26000301?" width=1 height=1 visibility="hidden" onLoad="moveToAbsolute(layer16.pageX,layer16.pageY);clip.height=1;clip.width=1; visibility='show';"></LAYER>
+<!--End-Survey-->
+
+</BODY>
+</HTML>
