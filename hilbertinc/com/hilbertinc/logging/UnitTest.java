@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import com.hilbertinc.base.HException;
 import com.hilbertinc.xml.HDOMParser;
 import com.hilbertinc.xml.HDumperVisitor;
-import com.sun.org.apache.bcel.internal.classfile.Field;
 import com.sun.xml.internal.stream.writers.XMLWriter;
 
 /**
@@ -41,10 +40,9 @@ public class UnitTest {
 
 			HDOMParser parser = new HDOMParser();
 			parser.parse(args[0]);
-			
+
 			System.out.println("You reading from: " + args[0]);
-			
-			
+
 			if (null == parser.getDocument()) {
 				System.out.println("Document was not successfully parsed");
 				System.out
@@ -55,8 +53,9 @@ public class UnitTest {
 			System.out.println("Done.  Dumping contents of parsed document.");
 			try {
 				HDumperVisitor dumper = new HDumperVisitor();
-				dumper.setWriter(new XMLWriter(new FileWriter(new File(args[1]))));
-				
+				dumper.setWriter(new XMLWriter(
+						new FileWriter(new File(args[1]))));
+
 				parser.traverse(dumper);
 				dumper.flush();
 				System.out.println("Done.");

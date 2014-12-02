@@ -13,8 +13,7 @@ public class HException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	private Throwable originalException = null;
 	private Vector<String> messageStack = new Vector<String>();
 	private boolean recoverable = false;
@@ -31,7 +30,7 @@ public class HException extends Exception {
 
 	/**
 	 * Construct an exception with message text
-	 *
+	 * 
 	 * @param s
 	 *            java.lang.String
 	 */
@@ -42,7 +41,7 @@ public class HException extends Exception {
 
 	/**
 	 * Construct an exception with message text and an original exception
-	 *
+	 * 
 	 * @param message
 	 *            java.lang.String
 	 * @param exception
@@ -61,7 +60,7 @@ public class HException extends Exception {
 
 	/**
 	 * Add another message to the stack
-	 *
+	 * 
 	 * @param message
 	 *            java.lang.String
 	 */
@@ -72,7 +71,7 @@ public class HException extends Exception {
 
 	/**
 	 * Access the name of the class that threw this exception
-	 *
+	 * 
 	 * @return java.lang.String
 	 */
 	public String getClassName() {
@@ -81,7 +80,7 @@ public class HException extends Exception {
 
 	/**
 	 * Access the Hilbert error code that corresponds to this exception
-	 *
+	 * 
 	 * @return int
 	 */
 	public int getErrorCode() {
@@ -90,7 +89,7 @@ public class HException extends Exception {
 
 	/**
 	 * This will return the contents of the message stack as an array of strings
-	 *
+	 * 
 	 * @return java.lang.String[]
 	 */
 	public String[] getMessages() {
@@ -103,7 +102,7 @@ public class HException extends Exception {
 	 * This enables exception handlers to append additional diagnostic messages
 	 * to the exception. If there is a series of catch/rethrow as the error
 	 * percolates up the call chain, each catch block can put in diagnostics.
-	 *
+	 * 
 	 * @return java.util.Vector
 	 */
 	protected Vector<String> getMessageStack() {
@@ -112,7 +111,7 @@ public class HException extends Exception {
 
 	/**
 	 * Access the method within the class that threw this exception
-	 *
+	 * 
 	 * @return java.lang.String
 	 */
 	public String getMethod() {
@@ -124,7 +123,7 @@ public class HException extends Exception {
 	 * exception to be thrown. This may be null in many cases, but it gives
 	 * exception handlers the opportunity to rethrow the original exception or
 	 * to provide additional diagnostics
-	 *
+	 * 
 	 * @return java.lang.Throwable
 	 */
 	public Throwable getOriginalException() {
@@ -136,7 +135,7 @@ public class HException extends Exception {
 	 * itself without intervention. Examples include a service at the other end
 	 * of a socket that is not available. Non-recoverable errors would include a
 	 * missing class such as a JDBC driver or a missing configuration file.
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public boolean isRecoverable() {
@@ -154,7 +153,7 @@ public class HException extends Exception {
 	/**
 	 * This will print all of the information about the exception to the writer
 	 * that was passed to us
-	 *
+	 * 
 	 * @param writer
 	 *            java.io.PrintWriter
 	 */
@@ -223,7 +222,7 @@ public class HException extends Exception {
 
 	/**
 	 * Dump the contents of the messages to the writer
-	 *
+	 * 
 	 * @param writer
 	 *            java.io.PrintWriter
 	 */
@@ -238,7 +237,7 @@ public class HException extends Exception {
 
 	/**
 	 * Access the name of the class that threw this exception
-	 *
+	 * 
 	 * @param name
 	 *            java.lang.String
 	 */
@@ -249,7 +248,7 @@ public class HException extends Exception {
 
 	/**
 	 * Access the Hilbert error code that corresponds to this exception
-	 *
+	 * 
 	 * @param code
 	 *            int
 	 */
@@ -260,7 +259,7 @@ public class HException extends Exception {
 
 	/**
 	 * Access the method within the class that threw this exception
-	 *
+	 * 
 	 * @param methodName
 	 *            java.lang.String
 	 */
@@ -274,7 +273,7 @@ public class HException extends Exception {
 	 * exception to be thrown. This may be null in many cases, but it gives
 	 * exception handlers the opportunity to rethrow the original exception or
 	 * to provide additional diagnostics
-	 *
+	 * 
 	 * @param exception
 	 *            java.lang.Throwable
 	 */
@@ -288,7 +287,7 @@ public class HException extends Exception {
 	 * itself without intervention. Examples include a service at the other end
 	 * of a socket that is not available. Non-recoverable errors would include a
 	 * missing class such as a JDBC driver or a missing configuration file.
-	 *
+	 * 
 	 * @param canRecover
 	 *            boolean
 	 */

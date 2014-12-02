@@ -23,7 +23,7 @@ public class HDOMParser {
 
 	/**
 	 * Access the DOM document that is the result of the parsed XML document.
-	 *
+	 * 
 	 * @return org.w3c.dom.Document
 	 */
 	public Document getDocument() {
@@ -32,7 +32,7 @@ public class HDOMParser {
 
 	/**
 	 * This will parse the XML data from the input stream passed
-	 *
+	 * 
 	 * @param xmlstream
 	 *            InputStream
 	 */
@@ -44,7 +44,7 @@ public class HDOMParser {
 
 	/**
 	 * This will parse the XML data from the input stream passed
-	 *
+	 * 
 	 * @param xmlstream
 	 *            InputStream
 	 */
@@ -57,7 +57,7 @@ public class HDOMParser {
 	/**
 	 * This is a convenience method that will build a FileInputStream from the
 	 * file name passed and call the parser on the stream
-	 *
+	 * 
 	 * @param fileName
 	 *            java.lang.String
 	 */
@@ -80,7 +80,7 @@ public class HDOMParser {
 	 * the public traverse(...) method with the root as the node. We terminate
 	 * the traversal as soon as the visitor returns a 'false' or the entire tree
 	 * has been traversed
-	 *
+	 * 
 	 * @param visitor
 	 *            COM.hilbertinc.xml.HDOMVisitor
 	 * @param node
@@ -166,7 +166,7 @@ public class HDOMParser {
 
 	/**
 	 * Access the DOM document that is the result of the parsed XML document.
-	 *
+	 * 
 	 * @param dom
 	 *            org.w3c.dom.Document
 	 */
@@ -178,7 +178,7 @@ public class HDOMParser {
 	/**
 	 * This will traverse the DOM tree and perform actions on a node within the
 	 * tree
-	 *
+	 * 
 	 * @param visitor
 	 *            HDOMVisitor
 	 */

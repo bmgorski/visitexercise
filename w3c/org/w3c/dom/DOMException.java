@@ -28,7 +28,7 @@ public abstract class DOMException extends RuntimeException {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public DOMException(short code, String message) {
 		super(message);
 		this.code = code;

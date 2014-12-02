@@ -16,8 +16,7 @@ public abstract class CSSException extends RuntimeException {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	public CSSException(short code, String message) {
 		super(message);
 		this.code = code;

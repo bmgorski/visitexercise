@@ -18,7 +18,7 @@ public class HDOMUtil {
 	/**
 	 * Return the first Element instance among the child nodes of the element
 	 * passed. If there are none, this will return a null reference
-	 *
+	 * 
 	 * @return org.w3c.dom.Element
 	 * @param element
 	 *            org.w3c.dom.Element
@@ -39,7 +39,7 @@ public class HDOMUtil {
 	/**
 	 * This is a utility method that will returns a boolean indicating of the
 	 * node is an Element and the name matches the tag passed
-	 *
+	 * 
 	 * @return boolean
 	 * @param node
 	 *            org.w3c.dom.Node
@@ -56,7 +56,7 @@ public class HDOMUtil {
 	/**
 	 * This will return the next sibling element (skipping Text elements along
 	 * the way)
-	 *
+	 * 
 	 * @return org.w3c.dom.Element
 	 * @param element
 	 *            org.w3c.dom.Element
@@ -74,7 +74,7 @@ public class HDOMUtil {
 	/**
 	 * This returns the text of the first Text node that is a child of the
 	 * element passed.
-	 *
+	 * 
 	 * @return java.lang.String
 	 * @param element
 	 *            org.w3c.dom.Element
@@ -105,12 +105,12 @@ public class HDOMUtil {
 	 * passed. It will then look at the child text nodes and return a trim'ed
 	 * version of the first Text node as the text of the tag. For example given
 	 * the XML source:
-	 *
+	 * 
 	 * <person> Bill E. Bob </person>
-	 *
-	 *
+	 * 
+	 * 
 	 * "Bill E. Bob" = textForFirstTag(element, "person");
-	 *
+	 * 
 	 * @return java.lang.String
 	 * @param element
 	 *            org.w3c.dom.Element
@@ -155,12 +155,12 @@ public class HDOMUtil {
 	 * passed. It will then look at the child text nodes and return a trim'ed
 	 * version of each Text node as the text of the tag. For example given the
 	 * XML source:
-	 *
+	 * 
 	 * <person> Bill E. Bob </person> <person> Ralph Kramden </person>
-	 *
+	 * 
 	 * String[] list = textForTag(element, "person"); list[0] = "Bill E. Bob"
 	 * list[1] = "Ralph\nKramden"
-	 *
+	 * 
 	 * @return java.lang.String
 	 * @param element
 	 *            org.w3c.dom.Element
@@ -177,7 +177,8 @@ public class HDOMUtil {
 		if (0 == tagCount) // No tags by that name
 			return new String[0];
 
-		Vector<String> strings = new Vector<String>(); // Same up all the text strings
+		Vector<String> strings = new Vector<String>(); // Same up all the text
+														// strings
 
 		for (int j = 0; j < tagCount; ++j) {
 			Node tagNode = tagList.item(j);
@@ -207,7 +208,7 @@ public class HDOMUtil {
 	/**
 	 * This will trim trailing and leading white space from a Text node in a DOM
 	 * structure.
-	 *
+	 * 
 	 * @return java.lang.String
 	 * @param textNode
 	 *            org.w3c.dom.Text

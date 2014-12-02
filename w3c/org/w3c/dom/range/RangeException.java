@@ -17,7 +17,7 @@ public abstract class RangeException extends RuntimeException {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public RangeException(short code, String message) {
 		super(message);
 		this.code = code;

@@ -38,7 +38,7 @@ public class HDumperVisitor implements HDOMVisitor {
 
 	/**
 	 * This will return an indent string of the proper length
-	 *
+	 * 
 	 * @return java.lang.String
 	 */
 	protected String getIndent() {
@@ -52,7 +52,7 @@ public class HDumperVisitor implements HDOMVisitor {
 	 * Access the writer to which with dump the XML data. Note that this will
 	 * lazy-construct a writer to the standard output if one isn't explicitly
 	 * set by the caller.
-	 *
+	 * 
 	 * @return java.io.Writer
 	 */
 	public Writer getWriter() {
@@ -149,7 +149,7 @@ public class HDumperVisitor implements HDOMVisitor {
 
 	/**
 	 * Access the writer object to which we write the XML data
-	 *
+	 * 
 	 * @param xmlWriter
 	 *            java.io.Writer
 	 */

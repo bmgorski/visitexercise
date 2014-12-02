@@ -53,10 +53,12 @@ public class AbstractReflectiveVisitor implements Visitor {
 			return null;
 		// create methods dictionary from the entry of the hashtable ClassMap
 		// whose key is this visitor's class. MAY BE NULL.
-		Hashtable<Object, Object> methods = (Hashtable<Object, Object>) ClassMap.get(getClass());
+		Hashtable<Object, Object> methods = ClassMap
+				.get(getClass());
 
 		if (methods == null)
-			ClassMap.put(getClass(), methods = new Hashtable<Object, Object>(10));
+			ClassMap.put(getClass(),
+					methods = new Hashtable<Object, Object>(10));
 
 		Method m = (Method) methods.get(c);
 		if (m != null)

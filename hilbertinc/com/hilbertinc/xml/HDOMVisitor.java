@@ -12,14 +12,14 @@ public interface HDOMVisitor {
 	/**
 	 * This returns false with the visitor is no longer interested in traversing
 	 * the tree
-	 *
+	 * 
 	 * @return boolean
 	 */
 	boolean continueTraversal();
 
 	/**
 	 * This is called when a Document node is encountered in the DOM tree
-	 *
+	 * 
 	 * @param document
 	 *            org.w3c.dom.Document
 	 */
@@ -27,7 +27,7 @@ public interface HDOMVisitor {
 
 	/**
 	 * This is called when a Document node is encountered in the DOM tree
-	 *
+	 * 
 	 * @param document
 	 *            org.w3c.dom.Document
 	 */
@@ -43,7 +43,7 @@ public interface HDOMVisitor {
 	 * recursive traversal of a DOM tree. The return value indicates if the
 	 * traversal should continue. A return value of 'true' will continue to
 	 * traverse the tree
-	 *
+	 * 
 	 * @param element
 	 *            org.w3c.dom.Element
 	 */
@@ -54,7 +54,7 @@ public interface HDOMVisitor {
 	 * recursive traversal of a DOM tree. The return value indicates if the
 	 * traversal should continue. A return value of 'true' will continue to
 	 * traverse the tree
-	 *
+	 * 
 	 * @param element
 	 *            org.w3c.dom.Element
 	 */
