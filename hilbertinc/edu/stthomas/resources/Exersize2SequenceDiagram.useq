@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.7" icons="true" automaticImage="JPEG">  
+  <object id="1" language="java" name="edu.stthomas.node.NodeTraversal" project="visitexercise" 
+    file="/visitexercise/hilbertinc/edu/stthomas/node/NodeTraversal.java" binary="false" label="nodeTraversal" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="2">      
+      <position height="1004" width="0" x="0" y="102"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="941" width="0" x="0" y="144"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="21" width="0" x="0" y="196"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="816" width="0" x="0" y="248"/>    
+    </execution>    
+    <execution id="18">      
+      <position height="21" width="0" x="0" y="907"/>    
+    </execution>  
+  </object>  
+  <object id="25" language="java" name="org.w3c.dom.Node" project="visitexercise" 
+    file="/visitexercise/w3c/org/w3c/dom/Node.java" binary="false" label="node" type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="21" width="0" x="0" y="279"/>    
+    </execution>  
+  </object>  
+  <object id="26" language="java" name="edu.stthomas.node.HTMLReflectiveVisitorWriter" project="visitexercise" 
+    file="/visitexercise/hilbertinc/edu/stthomas/node/HTMLReflectiveVisitorWriter.java" binary="false" label="visitor" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="12">      
+      <position height="460" width="0" x="0" y="321"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="21" width="0" x="0" y="802"/>    
+    </execution>    
+    <execution id="22">      
+      <position height="21" width="0" x="0" y="980"/>    
+    </execution>    
+    <execution id="24">      
+      <position height="21" width="0" x="0" y="1022"/>    
+    </execution>    
+    <execution id="28">      
+      <position height="293" width="0" x="0" y="363"/>    
+    </execution>    
+    <execution id="30">      
+      <position height="73" width="0" x="0" y="687"/>    
+    </execution>    
+    <execution id="40">      
+      <position height="21" width="0" x="0" y="583"/>    
+    </execution>  
+  </object>  
+  <object id="45" language="java" name="edu.stthomas.node.interfaces.Visitable" project="visitexercise" 
+    file="/visitexercise/hilbertinc/edu/stthomas/node/interfaces/Visitable.java" binary="false" label="v" 
+    type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="44">      
+      <position height="21" width="0" x="0" y="718"/>    
+    </execution>  
+  </object>  
+  <object id="46" language="java" name="java.util.Hashtable" project="visitexercise" 
+    file="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar" binary="true" 
+    label="ClassMap" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="32">      
+      <position height="21" width="0" x="0" y="394"/>    
+    </execution>    
+    <execution id="34">      
+      <position height="21" width="0" x="0" y="436"/>    
+    </execution>  
+  </object>  
+  <object id="47" language="java" name="java.util.Hashtable" project="visitexercise" 
+    file="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar" binary="true" label="methods" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="36">      
+      <position height="21" width="0" x="0" y="478"/>    
+    </execution>    
+    <execution id="38">      
+      <position height="21" width="0" x="0" y="520"/>    
+    </execution>    
+    <execution id="42">      
+      <position height="21" width="0" x="0" y="614"/>    
+    </execution>  
+  </object>  
+  <object id="48" language="java" name="org.w3c.dom.NodeList" project="visitexercise" 
+    file="/visitexercise/w3c/org/w3c/dom/NodeList.java" binary="false" label="nodeList" type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="16">      
+      <position height="21" width="0" x="0" y="844"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="21" width="0" x="0" y="938"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="traverse(edu.stthomas.node.HTMLReflectiveVisitorWriter):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="getDocument():org.w3c.dom.Document">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="7" operation="processNode(edu.stthomas.node.HTMLReflectiveVisitorWriter,org.w3c.dom.Node):void">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" operation="getChildNodes():org.w3c.dom.NodeList">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="dispatch(java.lang.Object):java.lang.String">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="addLevel():void">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="getLength():int">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="17" operation="processNode(edu.stthomas.node.HTMLReflectiveVisitorWriter,org.w3c.dom.Node):void">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="19" operation="item(int):org.w3c.dom.Node">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="21" operation="write(java.lang.String):void">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="23" operation="subtractLevel():void">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="24"/>  
+  </message>  
+  <message id="27" operation="getMethod(java.lang.Class):java.lang.reflect.Method">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="28"/>  
+  </message>  
+  <message id="29" operation="callAccept(edu.stthomas.node.interfaces.Visitable):void">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="30"/>  
+  </message>  
+  <message id="31" operation="get(java.lang.Object):V">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="32"/>  
+  </message>  
+  <message id="33" operation="put(K,V):V">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="34"/>  
+  </message>  
+  <message id="35" operation="Hashtable(int)">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="36"/>  
+  </message>  
+  <message id="37" operation="get(java.lang.Object):V">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="38"/>  
+  </message>  
+  <message id="39" operation="getMethod(java.lang.Class):java.lang.reflect.Method">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="40"/>  
+  </message>  
+  <message id="41" operation="put(K,V):V">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="42"/>  
+  </message>  
+  <message id="43" operation="accept(edu.stthomas.node.interfaces.Visitor):void">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="44"/>  
+  </message>
+</sequence-diagram>
